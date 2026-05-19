@@ -1,5 +1,6 @@
 # ============================================================
 # DEPENDENCY-SCAN-ONLY PIPELINE
+# Requires the repository provider to be Azure Repos
 # ============================================================
 
 trigger:

@@ -1,5 +1,6 @@
 # ============================================================
 # CODEQL-ONLY PIPELINE
+# Works with Azure Repos or GitHub-backed Azure DevOps pipelines
 # ============================================================
 
 trigger:
