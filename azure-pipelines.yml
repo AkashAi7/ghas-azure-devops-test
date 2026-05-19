@@ -14,8 +14,7 @@ pr:
       - main
 
 pool:
-  vmImage: ubuntu-latest
-
+    name : agentpoolman2
 variables:
   language: javascript
 
