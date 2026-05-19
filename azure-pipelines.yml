@@ -1,0 +1,70 @@
+# ============================================================
+# GHAS AZURE DEVOPS TEST PIPELINE
+# Default pipeline: dependency scan + CodeQL scan + publish
+# ============================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  language: javascript
+
+stages:
+  - stage: DependencyScan
+    displayName: Dependency Scanning
+    jobs:
+      - job: DepScan
+        displayName: Run dependency scan
+        steps:
+          - checkout: self
+
+          - task: AdvancedSecurity-Dependency-Scanning@1
+            displayName: GHAS - Dependency scanning
+
+  - stage: CodeQLScan
+    displayName: CodeQL Code Scanning
+    dependsOn: []
+    jobs:
+      - job: CodeQL
+        displayName: Run CodeQL analysis
+        steps:
+          - checkout: self
+
+          - task: AdvancedSecurity-Codeql-Init@1
+            displayName: GHAS - Initialize CodeQL
+            inputs:
+              languages: $(language)
+
+          - task: NodeTool@0
+            displayName: Use Node.js 20.x
+            inputs:
+              versionSpec: 20.x
+
+          - script: npm install
+            displayName: Install app dependencies
+
+          - task: AdvancedSecurity-Codeql-Analyze@1
+            displayName: GHAS - Analyze code
+
+  - stage: Publish
+    displayName: Publish Results
+    dependsOn:
+      - DependencyScan
+      - CodeQLScan
+    condition: always()
+    jobs:
+      - job: PublishResults
+        displayName: Publish GHAS results
+        steps:
+          - task: AdvancedSecurity-Publish@1
+            displayName: GHAS - Publish results

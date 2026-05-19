@@ -1,0 +1,16 @@
+{
+  "name": "ghas-azure-devops-test",
+  "version": "1.0.0",
+  "description": "Standalone GHAS for Azure DevOps demo app with intentional findings",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "lodash": "4.17.15"
+  }
+}

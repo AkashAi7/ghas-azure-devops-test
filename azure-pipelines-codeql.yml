@@ -1,0 +1,41 @@
+# ============================================================
+# CODEQL-ONLY PIPELINE
+# ============================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  language: javascript
+
+steps:
+  - checkout: self
+
+  - task: AdvancedSecurity-Codeql-Init@1
+    displayName: GHAS - Initialize CodeQL
+    inputs:
+      languages: $(language)
+
+  - task: NodeTool@0
+    displayName: Use Node.js 20.x
+    inputs:
+      versionSpec: 20.x
+
+  - script: npm install
+    displayName: Install app dependencies
+
+  - task: AdvancedSecurity-Codeql-Analyze@1
+    displayName: GHAS - Analyze code
+
+  - task: AdvancedSecurity-Publish@1
+    displayName: GHAS - Publish CodeQL results

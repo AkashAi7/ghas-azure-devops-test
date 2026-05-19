@@ -1,0 +1,25 @@
+# ============================================================
+# DEPENDENCY-SCAN-ONLY PIPELINE
+# ============================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - task: AdvancedSecurity-Dependency-Scanning@1
+    displayName: GHAS - Dependency scanning
+
+  - task: AdvancedSecurity-Publish@1
+    displayName: GHAS - Publish dependency scan results
