@@ -1,7 +1,7 @@
 # ============================================================
 # GHAS AZURE DEVOPS TEST PIPELINE
 # Default pipeline: dependency scan + CodeQL scan + publish
-# Note: dependency scanning requires this code to be stored in Azure Repos
+# Note: the GHAS tasks in this pipeline require this code to be stored in Azure Repos
 # ============================================================
 
 trigger:

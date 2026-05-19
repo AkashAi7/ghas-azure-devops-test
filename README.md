@@ -2,7 +2,7 @@
 
 This is a standalone demo repo for learning GitHub Advanced Security in Azure DevOps.
 
-This repo is designed to be imported into Azure Repos before you run the pipeline. Dependency scanning in Azure DevOps currently works only when the repository provider is Azure Repos.
+This repo is designed to be imported into Azure Repos before you run the pipeline. The Azure DevOps GHAS pipeline tasks used here currently support Azure Repos Git repositories, not GitHub-backed Azure DevOps pipelines.
 
 It is intentionally built to produce findings quickly:
 - Dependency scanning: `lodash@4.17.15` is included on purpose.
@@ -52,7 +52,7 @@ http://localhost:8080/health
 9. Select `azure-pipelines.yml`.
 10. Run the pipeline.
 
-If you connect this repository through GitHub instead of Azure Repos, CodeQL can still run but dependency scanning will be skipped.
+If you connect this repository through GitHub instead of Azure Repos, the GHAS CodeQL and dependency scanning tasks in these pipelines will fail or be skipped because the repository provider will be `GitHub` instead of `TfsGit`.
 
 ## Where to view results
 
